@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --column-bg: #f1f5f9;
+  --sidebar-bg: #ffffff;
+  --input-bg: #f8fafc;
+  --input-text: #0f172a;
+}
+
+[data-theme='dark'] {
+  --bg-main: #0b0f19;
+  --bg-card: #131b2e;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #1e293b;
+  --column-bg: #111827;
+  --sidebar-bg: #131b2e;
+  --input-bg: #0b0f19;
+  --input-text: #f1f5f9;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Cairo', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* السايدبار */
+.sidebar {
+  width: 340px;
+  background: var(--sidebar-bg);
+  border-left: 1px solid var(--border-color);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  overflow-x: auto;
+}
+
+/* شبكة أعمدة الـ Kanban بدون ارتفاع محدد عشان تاخد راحتها وتكبر براحتها */
+.kanban-container {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+.kanban-column {
+  background: var(--column-bg);
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  /* شلنا الـ max-height عشان العمود يطول براحته مع التاسكات وما يعملش scrollbar داخلي مزعج */
+  min-height: 200px;
+}
+
+/* تصميم الكارد */
+.task-card {
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid #10b981;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.tag-ux {
+  background: rgba(217, 119, 6, 0.15);
+  color: #d97706;
+}
+
+.tag-flutter {
+  background: rgba(13, 148, 136, 0.15);
+  color: #0d9488;
+}
+
+.tag-ai {
+  background: rgba(124, 58, 237, 0.15);
+  color: #7c3aed;
+}
+
+.tag-backend {
+  background: rgba(220, 38, 38, 0.15);
+  color: #dc2626;
+}
+
+
+input,
+select,
+textarea {
+  background: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid var(--border-color) !important;
+  font-family: 'Cairo', sans-serif !important;
+}
