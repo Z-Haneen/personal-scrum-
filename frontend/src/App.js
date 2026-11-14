@@ -12,6 +12,9 @@ function App() {
   const [aiReport, setAiReport] = useState(null);
   const [theme, setTheme] = useState('dark'); // المود الافتراضي
 
+  // حالة التحكم في فتح وإغلاق السايدبار للموبايل
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // بيانات التاسك
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -132,10 +135,16 @@ function App() {
   return (
     <div className="App">
       <div className="main-content">
-        {/* الهيدر مع زرار تبديل المود */}
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '1px solid var(--border-color)', paddingBottom: '20px' }}>
+        {/* الهيدر مع زرار تبديل المود وزر فتح القائمة الجانبية للموبايل */}
+        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px', borderBottom: '1px solid var(--border-color)', paddingBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: '26px', fontWeight: '700' }}>🌿 PlantX Scrum Pro Dashboard</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '5px' }}>
+              {/* زر إظهار القائمة الجانبية في الموبايل */}
+              <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
+                ☰ القائمة وإدارة التيم
+              </button>
+              <h1 style={{ margin: 0, fontSize: '26px', fontWeight: '700' }}>🌿 PlantX Scrum Pro Dashboard</h1>
+            </div>
             <p style={{ color: 'var(--text-muted)', margin: '5px 0 0', fontSize: '14px' }}>لوحة متابعة مشروع تخرج النباتات (ذكاء اصطناعي ونظام إدارة متكامل)</p>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
@@ -244,9 +253,17 @@ function App() {
         </div>
       </div>
 
+      {/* الخلفية المظللة عند فتح السايدبار في الموبايل */}
+      {isSidebarOpen && <div className="sidebar-backdrop" onClick={() => setIsSidebarOpen(false)}></div>}
+
       {/* الـ Sidebar الجانبي */}
-      <div className="sidebar">
-        <h3 style={{ fontSize: '17px', marginBottom: '15px' }}>👥 إدارة أعضاء التيم</h3>
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+          <h3 style={{ fontSize: '17px', margin: 0 }}>👥 إدارة أعضاء التيم</h3>
+          {/* زر إغلاق القائمة في الموبايل */}
+          <button className="close-sidebar-btn" onClick={() => setIsSidebarOpen(false)}>✕</button>
+        </div>
+
         <form onSubmit={addTeamMember} style={{ marginBottom: '25px' }}>
           <input type="text" placeholder="اسم العضو..." value={newMemberName} onChange={e => setNewMemberName(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px', borderRadius: '8px', fontSize: '13px' }} />
           <input type="text" placeholder="التخصص (مثل AI, Backend)..." value={newMemberRole} onChange={e => setNewMemberRole(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px', borderRadius: '8px', fontSize: '13px' }} />
@@ -289,5 +306,4 @@ function App() {
   );
 }
 
-//hello world
 export default App;

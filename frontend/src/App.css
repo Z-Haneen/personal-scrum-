@@ -132,3 +132,86 @@ textarea {
   border: 1px solid var(--border-color) !important;
   font-family: 'Cairo', sans-serif !important;
 }
+
+/* --- تعديلات التجاوز مع الشاشات الصغيرة (Responsive Sidebar) --- */
+
+/* زر فتح القائمة في الموبايل (مخفي افتراضياً في الشاشات الكبيرة) */
+.mobile-menu-btn {
+  display: none;
+}
+
+/* زر إغلاق القائمة داخل السايدبار في الموبايل */
+.close-sidebar-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* الطبقة الشفافة الخلفية عند فتح السايدبار في الموبايل */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* الشاشات الصغيرة (الهواتف أقل من 992px) */
+@media (max-width: 992px) {
+  .App {
+    flex-direction: column;
+  }
+
+  /* زر فتح القائمة يظهر في الأعلى */
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #10b981;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  /* تحويل السايدبار إلى عنصر عائم جانبي يتحرك للداخل والخارج */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -340px; /* مختفي تماماً جهة اليمين */
+    width: 300px;
+    height: 100vh;
+    z-index: 1100;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+  }
+
+  /* عند تفعيل الحالة open يتحرك ويدخل للشاشة */
+  .sidebar.open {
+    right: 0;
+  }
+
+  /* إظهار زر الإغلاق داخل السايدبار في الموبايل */
+  .close-sidebar-btn {
+    display: block;
+  }
+
+  /* إظهار الخلفية الشفافة */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+}
